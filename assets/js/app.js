@@ -4,9 +4,9 @@ var svgHeight = 600;
 
 var chartMargin = {
     top: 50,
-    right: 50   ,
-    left: 50,
-    bottom: 0};
+    right: 0,
+    left: 100,
+    bottom: 100};
 
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
 var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
@@ -60,28 +60,19 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     .attr("cy", d => yLinearScale(d.obesity))
     .attr("r", "15")
     .attr("fill", "teal")
-    .attr("opacity", ".5")
-    .attr("class", function(d){
-        return d.abbr;
-    });
-
-    circlesGroup.append("text").text(function(d){
-        return d.abbr;})
-        .attr("dx", function(c){
-            return xlinearScale(c["obesity"])
-        });
+    .attr("opacity", ".5");
 
     // creat axis labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - chartMargin.left + 20)
-      .attr("x", -100 - (chartHeight/2))
+      .attr("y", 0 - chartMargin.left + 50)
+      .attr("x", -100 - (chartHeight / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
       .text("% Obesity in the Population (by state)");
 
     chartGroup.append("text")
-      .attr("transform", `translate(${chartWidth/2 + 30}, ${chartHeight + chartMargin.top + 30})`)
+      .attr("transform", `translate(${chartWidth/2 - 100}, ${chartHeight + chartMargin.top + 10})`)
       .attr("class", "axisText")
       .text("Average Income per State (USD)");
 
