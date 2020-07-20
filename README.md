@@ -17,7 +17,7 @@ Income levels seem pretty well correlated with obesity levels in each state. Ove
 Poverty rate also appears to be pretty well correlated with obesity levels in each state.  Generally, states with higher poverty rates also presented higher obeisty levels. As noted above, this may be an indication of lower nutritional content in the foods that are more affordable or available (or both) to families who live below the poverty line.  
 
 ## Obesity vs. Healthcare Coverage
-There is a less strong correlation between Obesity and Healthcare coverage.  However, there is still a generally positive correlation between these two factors, indicating that the higher the percentage of the population that lacks healthcare coverage (used as a proxy for lack of access to health services), the higher the obesity rate. 
+There is a less strong correlation between obesity and healthcare coverage.  However, there is still a generally positive correlation between these two factors, indicating that the higher the percentage of the population that lacks healthcare coverage (used as a proxy for lack of access to health services), the higher the obesity rate. 
 
 ### Credits
 1. [David Gotz's example](https://bl.ocks.org/davegotz/bd54b56723c154d25eedde6504d30ad7) to see how to implement tooltips with d3-tip.
