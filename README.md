@@ -3,7 +3,7 @@
 
 [Check out the indicators graph.](https://patelpurvip.github.io/Poverty-Health-Indicators-USCensus/)
 
-This exercise visualizes census data, specifically 2014 data from the U.S. Census Bureau and the Behavioral Risk Factor Surveillance System, based on 2014 American Community Survey (ACS) [1-year estimates](https://data.census.gov/cedsci/table?q=United%20States&g=0100000US&tid=ACSDP1Y2018.DP05). The dataset includes information on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error.
+This exercise uses SVG graphics created using the D3-JavaScript library to visualize census data, specifically 2014 data from the U.S. Census Bureau and the Behavioral Risk Factor Surveillance System, based on 2014 American Community Survey (ACS) [1-year estimates](https://data.census.gov/cedsci/table?q=United%20States&g=0100000US&tid=ACSDP1Y2018.DP05). The dataset includes information on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error.
 
 Each circle in the scatter plot that represents each state with circle elements. The ticks on the axes allow us to infer approximate values for each circle, while tooltips display the data for the axis that the user selects. 
 
