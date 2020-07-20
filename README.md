@@ -13,6 +13,11 @@ Each circle in the scatter plot that represents each state with circle elements.
 ## Income vs. Obesity
 Income levels seem pretty well correlated with obesity levels in each state. Overall, states with a lower average income level among its population presented higher obesity levels. One could speculate that this could indicated that lower-cost food items are contribute to nutritional deficiency, resulting in higher probability of obesity rates in populations with lower incomes. It could also support the idea of “food desserts”, where lower-income areas may have lower availability of high-quality foods or more food options, thus contributing to nutritional deficiencies like obesity.
 
+## Poverty Rate vs. Obesity
+
+
+## Obesity vs. Healthcare Coverage
+
 
 ### Credits
 1. [David Gotz's example](https://bl.ocks.org/davegotz/bd54b56723c154d25eedde6504d30ad7) to see how to implement tooltips with d3-tip.
