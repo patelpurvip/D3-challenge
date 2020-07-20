@@ -29,8 +29,8 @@ h2 {
   bottom: 0;
   width: 100%; /* Set the fixed height of the footer here */
   height: 10px;
-  padding-top: 20px;
-  padding-bottom: 60px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
   color: #f5f5f5;
   background-color:teal;
