@@ -40,10 +40,7 @@ function xScale(censusData, chosenXAxis) {
         .range([0, chartWidth]);
 
     return xLinearScale;
-    
 }
-
-console.log("yay XLinearScale");
 
 function yScale(censusData, chosenYAxis) {
     var yLinearScale = d3.scaleLinear()
@@ -52,6 +49,7 @@ function yScale(censusData, chosenYAxis) {
     
     return yLinearScale;
 }
+
 
 function renderAxes(newXScale, xAxis, newYScale, yAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
@@ -64,9 +62,12 @@ function renderAxes(newXScale, xAxis, newYScale, yAxis) {
     yAxis.transition()
         .duration(1000)
         .call(leftAxis);
-    
+
     return xAxis, yAxis;
+    
 }
+
+
 
 function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     circlesGroup.transition()
@@ -77,7 +78,9 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYA
     return circlesGroup;
 }
 
-function updateXToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
+// console.log("yay updated circlesGroup -- I think.....");
+
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     var xLabel;
 
     if (chosenXAxis === "income") {
@@ -106,12 +109,13 @@ function updateXToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
         yLabel = "Smokers per State (%)";
     }
  
+
     // var tooltip = d3.tip()
     var toolTip = d3.select("#scatter").append("div")
         .attr("class", "tooltip")
         .offset([80, -60])
         .html(function(d) {
-            return (`${d.state}<br>${xlabel} ${d[chosenXAxis]}`), (`${d.state}<br>${ylabel} ${d[chosenYAxis]}`);
+            return (`${d.state}<br>${xlabel} ${d[chosenXAxis]}<br>${ylabel} ${d[chosenYAxis]}`);
         });
 
     circlesGroup.call(toolTip);
@@ -122,7 +126,6 @@ function updateXToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
     return circlesGroup;
 }
-
 
 // Import Data
 d3.csv("assets/data/data.csv").then(function(censusData) {
@@ -140,7 +143,6 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     // scale functions
     var xLinearScale = xScale(censusData, chosenXAxis);
-        
     var yLinearScale = yScale(censusData, chosenYAxis);
 
     // create axis functions
@@ -152,7 +154,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .classed("x-axis", true)
         .attr("transform", `translate(0, ${chartHeight})`)
         .call(bottomAxis);
-    
+
     var yAxis = chartGroup.append("g")
         .classed("y-axis", true)
         .call(leftAxis);
@@ -170,8 +172,10 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         // .attr("text", d => d.abbr)
         // .property("value", d => d.abbr)
 
+
     // creat axis labels & append axes
     var xLabelsGroup = chartGroup.append("g")
+        //THIS LINE OF CODE SEEMS TO DO NOTHING, BUT SHOULD BE TRANSLATING THE X-AXIS LABELS BELOW THE X-AXIS
         .attr("transform", `translate(${chartWidth/2 - 80}, ${chartHeight + 20})`);
     
     var incomeLabel = xLabelsGroup.append("text")
@@ -204,37 +208,38 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .attr("class", "axisText")
         .text("Lack of Healthcare Coverage per State (%)");
     
-    var yLablesGroup = chartGroup.append("text")
+    var yLablesGroup = chartGroup.append("g")
         .attr("transform", "rotate(-90)");
     
-    var obesityLabel = yLablesGroup
+    var obesityLabel = yLablesGroup.append("text")
       .attr("y", 0 - chartMargin.left + 40)
       .attr("x", -100 - (chartHeight / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("% Obesity in the State Population");
-
-    var ageLabel = yLablesGroup
+      .text("% Obesity in the Population (by state)");
+      
+    var ageLabel = yLablesGroup.append("text")
       .attr("y", 0 - chartMargin.left + 20)
       .attr("x", -100 - (chartHeight / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
       .text("Average State Population Age");
 
-    var smokeLabel = yLablesGroup
+    var smokeLabel = yLablesGroup.append("text")
       .attr("y", 0 - chartMargin.left + 60)
       .attr("x", -100 - (chartHeight / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
       .text("% Smokers in State Population");
+    // var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
-    var circlesGroup = updateXToolTip(chosenXAxis, circlesGroup);
+    // SOMETHING GOING ON HERE CHECK THIS!!!!
+    // var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
     // , updateYToolTip(chosenYAxis, circlesGroup)
 
 
     xLabelsGroup.selectAll("text")
         .on("click", function() {
-            console.log("ok, that worked");
             var value = d3.select(this).attr("value");
             if(value !== chosenXAxis) {
                 chosenXAxis = value;
@@ -242,8 +247,8 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
                 xAxis = renderAxes(xLinearScale, xAxis);
 
-                circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
-                circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+                // circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+                // circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
                 if (chosenXAxis === "poverty") {
                     povertyLabel
@@ -279,20 +284,15 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
                         .classed("inactive", false);
                 }
             }
-        });
-  
-    yLabelsGroup.selectAll("text")
-        .on("click", function() {
-            console.log("ok, that worked");
-            var value = d3.select(this).attr("value");
-            if(value !== chosenYAxis) {
+
+            if(value !== chosenYAxis){
                 chosenYAxis = value;
                 yLinearScale = yScale(censusData, chosenYAxis);
 
                 yAxis = renderAxes(yLinearScale, yAxis);
 
-                circlesGroup = renderCircles(circlesGroup, yLinearScale, chosenYAxis);
-                circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
+                // circlesGroup = renderCircles(circlesGroup, yLinearScale, chosenYAxis);
+                // circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
         
                 if (chosenYAxis === "obesity") {
                     obesityLabel
@@ -305,6 +305,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
                         .classed("active", false)
                         .classed("inactive", true);
                 }
+
                 else if (chosenYAxis === "age") {
                     obesityLabel
                         .classed("active", false)
@@ -316,8 +317,8 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
                         .classed("active", false)
                         .classed("inactive", true);
                 }
-                else if (chosenYAxis === "smokes"){
-                    obeistyLabel
+                else if (chosenYAxis === "smokes") {
+                    obesityLabel
                         .classed("active", false)
                         .classed("inactive", true);
                     ageLabel
@@ -327,7 +328,15 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
                         .classed("active", true)
                         .classed("inactive", false);
                 }
-        }
+            }
+        });
+
+    // yLabelsGroup.selectAll("text")
+    //     .on("click", function() {
+    //         console.log("ok, that worked");
+    //         var value = d3.select(this).attr("value"); 
+    //     });
+
 }).catch(function(error) {
     console.log(error);
 });
@@ -336,4 +345,10 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 //----end Responsive code--------------
 // }
 // makeResponsive();
-// d3.select(window).on("resize", makeResponsive)
+// d3.select(window).on("resize", makeResponsive);
+
+
+
+
+
+

@@ -66,8 +66,12 @@ function updateToolTip(chosenXAxis, circlesGroup) {
         label = "Ave Income per State (USD)";
     }
 
+    else if (chosenXAxis === "poverty") {
+        label = "Poverty level per State (%)";
+    }
+
     else {
-        label = "Poverty level per State (%)"
+        label = "Healthcare coverage per State (%)";
     }
 
     // var tooltip = d3.tip()
@@ -96,6 +100,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         data.income = +data.income;
         data.obesity = +data.obesity;
         data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
     });
 
     // scale functions
@@ -156,6 +161,16 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
       .attr("class", "axisText")
       .text("Poverty Rate per State (%)");
     
+    var healthcareLabel = labelsGroup.append("text")
+      //   .attr("x", chartWidth/2 - 50)
+      //   .attr("y", chartHeight + 65)
+        .attr("x", 0)
+        .attr("y", 60)
+        .attr("value", "healthcare")
+        .classed("inactive", true)
+        .attr("class", "axisText")
+        .text("Lack of Healthcare Coverage per State (%)");
+    
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - chartMargin.left + 40)
@@ -187,12 +202,29 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
                     incomeLabel
                         .classed("active", false)
                         .classed("inactive", true);
+                    healthcareLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                }
+                else if (chosenXAxis === "income") {
+                    povertyLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    incomeLabel
+                        .classed("active", true)
+                        .classed("inactive", false);
+                    healthcareLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
                 }
                 else {
                     povertyLabel
                         .classed("active", false)
                         .classed("inactive", true);
                     incomeLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    healthcareLabel
                         .classed("active", true)
                         .classed("inactive", false);
                 }
