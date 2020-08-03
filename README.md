@@ -7,6 +7,8 @@ This exercise uses SVG graphics created using the D3-JavaScript library to visua
 
 Each circle in the scatter plot that represents each state with circle elements. The ticks on the axes allow us to infer approximate values for each circle, while tooltips display the data for the axis that the user selects. 
 
+The graph presents options for 3 different factors to compare against obesity.  Clicking on the desired access will re-render the circles in the graph to refect the chosen comparison.  A brief analysis of each of the 3 comparisons is provided below, as well as on the deployed page. 
+
 
 # Evaluation
 
